@@ -98,14 +98,14 @@ if __name__ == '__main__':
     clean_path = os.path.join(args.output, 'clean_events')
     if os.path.exists(clean_path):
         clean_df = pd.read_parquet(clean_path)
-        print("=== Очищені дані (перші 5 рядків) ===")
+        print("=== Cleaned data (first 5 rows) ===")
         print(clean_df[['event_id', 'revenue_usd', 'country', 'event_time']].head())
 
     quarantine_path = os.path.join(args.output, 'quarantined_events.parquet')
     if os.path.exists(quarantine_path):
         quarantine_df = pd.read_parquet(quarantine_path)
-        print("\n=== Карантинні дані ===")
+        print("\n=== Quarantine data ===")
         print(quarantine_df)
     else:
-        print("\n=== Карантинні дані ===")
-        print("Карантин порожній (немає поганих рядків), файл не створювався.")
+        print("\n=== Quarantine data ===")
+        print("Quarantine is empty (no malicious entries); the file was not created.")
