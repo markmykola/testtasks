@@ -1,0 +1,1 @@
+I did not receive the initial CSV files in the email, so I generated equivalent mock data for events_raw.csv, apps.csv, and campaign_costs.csv that follows the known facts and edge cases described in the prompt (duplicates, string NULLs, late arrivals, etc.).
