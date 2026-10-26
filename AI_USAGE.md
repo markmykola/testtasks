@@ -2,7 +2,7 @@
 
 I used an AI assistant (Google Gemini, ChatGPT) during this task.
 
-**How it was used:**
+## **How it was used:**
 
 **For SQL tasks:**
 - Assisting with the optimal syntax for PostgreSQL UPSERT (`ON CONFLICT DO UPDATE`), as I wanted to ensure the syntax was perfectly standard.
