@@ -49,6 +49,12 @@ def clean_events(df):
     return valid_df, quarantine_df, invalid_revenue_count
 
 def run_pipeline(input_dir, output_dir, since_date):
+    """
+    Orchestrates the ETL process: 
+    Reads raw CSV, applies cleaning transformations, filters data incrementally 
+    based on the 'since_date' (catching late arrivals via ingested_at), 
+    and writes partitioned Parquet files for downstream analytics.
+    """
     input_path = os.path.join(input_dir, 'events_raw.csv')
     df = pd.read_csv(input_path, dtype=str)
     
