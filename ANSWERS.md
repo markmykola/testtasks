@@ -56,7 +56,7 @@ If the script dies halfway through, it leaves partially written Parquet files in
 - **Dimensions:** `dim_user`, `dim_app`, `dim_campaign` (media_source, campaign), `dim_date`.
 
 **4.2 A dimension that changes**
-I would implement Slowly Changing Dimensions (SCD) Type 2 on the campaign dimension. I would add `valid_from` and `valid_to` timestamp columns to the dimension table. Yesterday's fact rows will join to the old dimension record (where `event_time` falls between `valid_from` and `valid_to`), preserving historical names. The cost is query complexity: standard joins now require `BETWEEN` date conditions, which are slower and harder to write.
+I would implement SCD Type 2 on the campaign dimension. I would add `valid_from` and `valid_to` timestamp columns to the dimension table. Yesterday's fact rows will join to the old dimension record, preserving historical names. The cost is query complexity: standard joins now require `BETWEEN` date conditions, which are slower and harder to write.
 
 **4.3 Idempotency**
 Idempotency means that doing a task once has the exact same effect as doing it ten times. If you press the "up" button on an elevator that is already going up, nothing changes — that's idempotent. 
