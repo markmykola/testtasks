@@ -60,13 +60,13 @@ I would implement SCD Type 2 on the campaign dimension. I would add `valid_from`
 
 **4.3 Idempotency**
 Idempotency means that doing a task once has the exact same effect as doing it ten times. If you press the "up" button on an elevator that is already going up, nothing changes — that's idempotent. 
-To an engineer: `INSERT ... SELECT` is not idempotent because running it twice inserts the data twice, creating duplicates. The usual fixes are using `UPSERT` / `MERGE` statements, or using the "Delete-Write" pattern (deleting the target partition completely before inserting the new data).
+To an engineer: `INSERT ... SELECT` is not idempotent because running it twice inserts the data twice, creating duplicates. The usual fixes are using `UPSERT` / `MERGE` statements, or using the "Delete-Write" pattern.
 
 **4.4 Late data**
 The pipeline reads the late Thursday batch using `ingested_at`. The logic processes the event, determines its `event_date` is Monday, and updates/overwrites Monday's partition. I tell the client: "Our data model is designed to be eventually consistent to accommodate late mobile network deliveries. Monday's initial numbers were preliminary; the final accurate numbers are now updated in the dashboard."
 
 **4.5 Partitioning**
-I would partition the fact table on `event_date` (derived from `event_time`). We partition by this because 99% of business queries filter by when the event actually happened ("How much revenue did we make last month?"), enabling partition pruning. One query pattern this makes slower is auditing data ingestion ("How many rows did the vendor send us today?"), which filters by `ingested_at` and requires scanning multiple partitions.
+I would partition the fact table on `event_date` (derived from `event_time`). We partition by this because 99% of business queries filter by when the event actually happened, enabling partition pruning. One query pattern this makes slower is auditing data ingestion, which filters by `ingested_at` and requires scanning multiple partitions.
 
 ---
 
